@@ -79,6 +79,7 @@ var DateRangePicker = _react2['default'].createClass({
     initialMonth: _react2['default'].PropTypes.number, // Overrides values derived from initialDate/initialRange
     initialRange: _react2['default'].PropTypes.object,
     initialYear: _react2['default'].PropTypes.number, // Overrides values derived from initialDate/initialRange
+    locale: _react2['default'].PropTypes.string,
     maximumDate: _react2['default'].PropTypes.instanceOf(Date),
     minimumDate: _react2['default'].PropTypes.instanceOf(Date),
     numberOfCalendars: _react2['default'].PropTypes.number,
@@ -109,6 +110,7 @@ var DateRangePicker = _react2['default'].createClass({
       previousLabel: '',
       initialDate: initialDate,
       initialFromValue: true,
+      locale: (0, _moment2['default'])().locale(),
       selectionType: 'range',
       singleDateRange: false,
       stateDefinitions: {
@@ -491,6 +493,7 @@ var DateRangePicker = _react2['default'].createClass({
     var numberOfCalendars = _props2.numberOfCalendars;
     var selectionType = _props2.selectionType;
     var value = _props2.value;
+    var locale = _props2.locale;
     var _state2 = this.state;
     var dateStates = _state2.dateStates;
     var enabledRange = _state2.enabledRange;
@@ -543,6 +546,7 @@ var DateRangePicker = _react2['default'].createClass({
       key: key,
       selectionType: selectionType,
       value: value,
+      locale: locale,
       maxIndex: numberOfCalendars - 1,
       firstOfMonth: monthDate,
       onMonthChange: this.changeMonth,
