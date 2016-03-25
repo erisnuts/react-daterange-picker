@@ -44,6 +44,10 @@ var _utilsPureRenderMixin = require('../utils/PureRenderMixin');
 
 var _utilsPureRenderMixin2 = _interopRequireDefault(_utilsPureRenderMixin);
 
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 var CalendarMonth = _react2['default'].createClass({
   displayName: 'CalendarMonth',
 
@@ -123,7 +127,10 @@ var CalendarMonth = _react2['default'].createClass({
 
     var headers = indices.map((function (index) {
       var lang = _moment2['default'].localeData(this.props.locale);
-      var weekday = [lang._weekdays[index], lang._weekdaysShort[index]];
+      var WEEKDAYS = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
+      var WEEKDAYS_SHORT = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+
+      var weekday = [WEEKDAYS[index], WEEKDAYS_SHORT[index]];
       return _react2['default'].createElement(
         'th',
         { className: this.cx({ element: 'WeekdayHeading' }), key: weekday, scope: 'col' },
@@ -214,13 +221,14 @@ var CalendarMonth = _react2['default'].createClass({
   renderHeaderMonth: function renderHeaderMonth() {
     var firstOfMonth = this.props.firstOfMonth;
 
-    var choices = _moment2['default'].localeData(this.props.locale)._months.map(this.renderMonthChoice);
+    var MONTHS = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+    var choices = MONTHS.map(this.renderMonthChoice);
     var modifiers = { month: true };
 
     return _react2['default'].createElement(
       'span',
       { className: this.cx({ element: 'MonthHeaderLabel', modifiers: modifiers }) },
-      firstOfMonth.locale(this.props.locale).format('MMMM'),
+      capitalizeFirstLetter(firstOfMonth.locale(this.props.locale).format('MMMM')),
       this.props.disableNavigation ? null : _react2['default'].createElement(
         'select',
         { className: this.cx({ element: 'MonthHeaderSelect' }), value: firstOfMonth.month(), onChange: this.handleMonthChange },

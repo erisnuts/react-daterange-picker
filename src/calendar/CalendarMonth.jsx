@@ -9,6 +9,9 @@ import CustomPropTypes from '../utils/CustomPropTypes';
 import isMomentRange from '../utils/isMomentRange';
 import PureRenderMixin from '../utils/PureRenderMixin';
 
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 const CalendarMonth = React.createClass({
   mixins: [BemMixin, PureRenderMixin],
@@ -25,7 +28,7 @@ const CalendarMonth = React.createClass({
     locale: React.PropTypes.string.isRequired,
     onMonthChange: React.PropTypes.func,
     onYearChange: React.PropTypes.func,
-    value: CustomPropTypes.momentOrMomentRange,
+    value: CustomPropTypes.momentOrMomentRange
   },
 
   renderDay(date, i) {
@@ -77,7 +80,10 @@ const CalendarMonth = React.createClass({
 
     let headers = indices.map(function(index) {
       const lang = moment.localeData(this.props.locale);
-      let weekday = [lang._weekdays[index], lang._weekdaysShort[index]];
+      var WEEKDAYS = [ 'Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота' ];
+      var WEEKDAYS_SHORT = [ 'Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб' ];
+
+      let weekday = [WEEKDAYS[index], WEEKDAYS_SHORT[index]];
       return (
         <th className={this.cx({element: 'WeekdayHeading'})} key={weekday} scope="col"><abbr title={weekday[0]}>{weekday[1]}</abbr></th>
       );
@@ -147,12 +153,14 @@ const CalendarMonth = React.createClass({
 
   renderHeaderMonth() {
     let {firstOfMonth} = this.props;
-    let choices = moment.localeData(this.props.locale)._months.map(this.renderMonthChoice);
+
+    var MONTHS = [ 'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь' ]
+    let choices = MONTHS.map(this.renderMonthChoice);
     let modifiers = {month: true};
 
     return (
       <span className={this.cx({element: 'MonthHeaderLabel', modifiers})}>
-        {firstOfMonth.locale(this.props.locale).format('MMMM')}
+        {capitalizeFirstLetter(firstOfMonth.locale(this.props.locale).format('MMMM'))}
         {this.props.disableNavigation ? null : <select className={this.cx({element: 'MonthHeaderSelect'})} value={firstOfMonth.month()} onChange={this.handleMonthChange}>{choices}</select>}
       </span>
     );
@@ -186,7 +194,7 @@ const CalendarMonth = React.createClass({
         </table>
       </div>
     );
-  },
+  }
 });
 
 export default CalendarMonth;
