@@ -27,7 +27,7 @@ const DatePickerRange = React.createClass({
   getInitialState() {
     return {
       value: this.props.value,
-      states: null,
+      states: null
     };
   },
 
@@ -41,30 +41,30 @@ const DatePickerRange = React.createClass({
         <RangePicker {...this.props} onSelect={this.handleSelect} value={this.state.value} />
         <div>
           <input type="text"
-            value={this.state.value ? this.state.value.start.format('LL') : null}
+            value={this.state.value ? this.state.value.start.format('LL') : ''}
             readOnly={true}
             placeholder="Start date"/>
           <input type="text"
-            value={this.state.value ? this.state.value.end.format('LL') : null}
+            value={this.state.value ? this.state.value.end.format('LL') : ''}
             readOnly={true}
             placeholder="End date" />
         </div>
       </div>
     );
-  },
+  }
 });
 
 
 const DatePickerSingle = React.createClass({
   getInitialState() {
     return {
-      value: null,
+      value: ''
     };
   },
 
   handleSelect(value) {
     this.setState({
-      value: value,
+      value: value
     });
   },
 
@@ -80,7 +80,7 @@ const DatePickerSingle = React.createClass({
         </div>
       </div>
     );
-  },
+  }
 });
 
 
@@ -96,17 +96,17 @@ const Index = React.createClass({
     const stateDefinitions = {
       available: {
         color: '#ffffff',
-        label: 'Available',
+        label: 'Available'
       },
       enquire: {
         color: '#ffd200',
-        label: 'Enquire',
+        label: 'Enquire'
       },
       unavailable: {
         selectable: false,
         color: '#78818b',
-        label: 'Unavailable',
-      },
+        label: 'Unavailable'
+      }
     };
 
     const dateRanges = [
@@ -115,15 +115,15 @@ const Index = React.createClass({
         range: moment.range(
           moment().add(2, 'weeks').subtract(5, 'days'),
           moment().add(2, 'weeks').add(6, 'days')
-        ),
+        )
       },
       {
         state: 'unavailable',
         range: moment.range(
           moment().add(3, 'weeks'),
           moment().add(3, 'weeks').add(5, 'days')
-        ),
-      },
+        )
+      }
     ];
 
     const initialStart = moment().add(1, 'weeks').startOf('day');
@@ -189,7 +189,7 @@ const Index = React.createClass({
         <Footer />
       </main>
     );
-  },
+  }
 });
 
 export default Index;

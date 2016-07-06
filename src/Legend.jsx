@@ -24,7 +24,7 @@ const Legend = React.createClass({
       def = stateDefinitions[name];
       if (def.label && def.color) {
         style = {
-          backgroundColor: def.color,
+          backgroundColor: def.color
         };
         items.push(
           <li className={this.cx({element: 'LegendItem'})} key={name}>
@@ -44,7 +44,7 @@ const Legend = React.createClass({
         {items}
       </ul>
     );
-  },
+  }
 });
 
 export default Legend;

@@ -13,6 +13,7 @@ var connect = require('gulp-connect');
 var sass = require('gulp-sass');
 var deploy = require('gulp-gh-pages');
 var React = require('react');
+var ReactDOMServer = require('react-dom/server');
 var webpack = require('webpack');
 var gulpWebpack = require('gulp-webpack');
 
@@ -55,7 +56,7 @@ var webpackConfig = {
         loaders: [
           'babel-loader?stage=1&plugins[]=object-assign'
         ]
-      },
+      }
     ],
     postLoaders: [
       {
@@ -103,7 +104,7 @@ gulp.task('build-example', function() {
   });
 
   var Index = React.createFactory(require('./example/base.jsx'));
-  var markup = '<!document html>' + React.renderToString(Index());
+  var markup = '<!document html>' + ReactDOMServer.renderToString(Index());
 
   // write file
   fs.writeFileSync('./example/index.html', markup);
